@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class LogicaCalculadora {
-//****************************************************************************************************************************************
+	//****************************************************************************************************************************************
 	public JTextField  BorrarCero (  JTextField cajaResultado) {
 		String cadena =String.valueOf(cajaResultado.getText());
 		if(cadena.length()==2  ) {
@@ -13,7 +13,7 @@ public class LogicaCalculadora {
 				cajaResultado.setText(cadena);	}	}
 		return cajaResultado ;
 	}
-//****************************************************************************************************************************************
+	//****************************************************************************************************************************************
 	public JTextField  BorrarUltimoNumero (  JTextField cajaResultado, ActionEvent e, JButton btnBorrar) {
 		String cadena = cajaResultado.getText();
 		if(e.getSource()==btnBorrar) {
@@ -24,6 +24,8 @@ public class LogicaCalculadora {
 					cajaResultado.setText(cadena.substring(0,cadena.length()-1));}}}
 		return cajaResultado;
 	}
-//****************************************************************************************************************************************
+	//****************************************************************************************************************************************
+	
+	
 	
 }//logic

@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -22,7 +23,9 @@ class VentanaInicio extends JFrame implements ActionListener{
 	JButton btn0,btn1, btn2, btn3 ,btn4 , btn5 , btn6, btn7 , btn8, btn9, btnPunto;
 	JButton btnBorrar;
 	JTextField cajaResultado;
-	JButton btnDividir, btnIgual ;
+	JButton btnDividir, btnIgual,btnMas, btnPorcentaje, btnRaiz , btnReiniciar, btnAjustes;
+	JButton btnCE, btnCuadrado, btnRestar;
+	JButton btnC,btnUnoEntreX, btnmultiplicar, btnMasMenos;
 	LogicaCalculadora c1 = new LogicaCalculadora();
 	public VentanaInicio() {
 		getContentPane().setBackground(new Color (210,247,247));
@@ -37,7 +40,7 @@ class VentanaInicio extends JFrame implements ActionListener{
 		Icon iconReiniciar = new ImageIcon("C:\\Users\\Marcelo\\Documents\\000SEXTO\\ICONOS\\reiniciar.png");
 		Icon iconBorrar = new ImageIcon("C:\\Users\\Marcelo\\Documents\\000SEXTO\\ICONOS\\borrar.png");
 
-		JButton btnAjustes = new JButton (icon);
+		btnAjustes = new JButton (icon);
 		btnAjustes.setBounds(0, 0, 19, 19);
 		add(btnAjustes);
 
@@ -47,7 +50,7 @@ class VentanaInicio extends JFrame implements ActionListener{
 		txtEstandar.setBounds(21, 0, 270, 27);
 		add(txtEstandar);
 
-		JButton btnReiniciar = new JButton (iconReiniciar);
+		btnReiniciar = new JButton (iconReiniciar);
 		btnReiniciar.setBounds(260, 0, 24, 20);
 		add(btnReiniciar);
 
@@ -59,36 +62,38 @@ class VentanaInicio extends JFrame implements ActionListener{
 		add(cajaResultado );
 
 		//Primera fila 
-		JButton btnPorcentaje = new JButton ("%");
+		btnPorcentaje = new JButton ("%");
 		btnPorcentaje.setBounds(0,90, 70, 30);
 		btnPorcentaje.setBackground(new Color (210,247,247));
 		add(btnPorcentaje);
 
-		JButton btnRaiz = new JButton ("√");
+		btnRaiz = new JButton ("√");
 		btnRaiz.setBounds(70,90, 70, 30);
 		btnRaiz.setBackground(new Color (210,247,247));
 		add(btnRaiz);
 
-		JButton btnCuadrado = new JButton (" x² ");
+		btnCuadrado = new JButton (" x² ");
 		btnCuadrado.setBounds(140,90, 75, 30);
 		btnCuadrado.setBackground(new Color (210,247,247));
 		add(btnCuadrado);
 
-		JButton btnUnoEntreX = new JButton (" 1/x ");
+		btnUnoEntreX = new JButton (" 1/x ");
 		btnUnoEntreX.setBounds(215,90, 75, 30);
 		btnUnoEntreX.setBackground(new Color (210,247,247));
 		add(btnUnoEntreX);
 
 		//Segunda fila 
-		JButton btnCE = new JButton ("CE");
+		 btnCE = new JButton ("CE");
 		btnCE.setBounds(0,120, 70, 30);
 		btnCE.setBackground(new Color (226,247,255));
 		add(btnCE);
+		btnCE.addActionListener(this);
 
-		JButton btnC = new JButton ("C");
+		 btnC = new JButton ("C");
 		btnC.setBounds(70,120, 70, 30);
 		btnC.setBackground(new Color (226,247,255));
 		add(btnC);
+		btnC.addActionListener(this);
 
 		btnBorrar = new JButton (iconBorrar);
 		btnBorrar.setBounds(140,120, 75, 30);
@@ -121,7 +126,7 @@ class VentanaInicio extends JFrame implements ActionListener{
 		add(btn9);
 		btn9.addActionListener(this);
 
-		JButton btnmultiplicar = new JButton (" X ");
+		btnmultiplicar = new JButton (" X ");
 		btnmultiplicar.setBounds(215,150, 75, 30);
 		btnmultiplicar.setBackground(new Color (226,247,255));
 		add(btnmultiplicar);
@@ -145,7 +150,7 @@ class VentanaInicio extends JFrame implements ActionListener{
 		add(btn6);
 		btn6.addActionListener(this);
 
-		JButton btnRestar = new JButton (" - ");
+		btnRestar = new JButton (" - ");
 		btnRestar.setBounds(215,180, 75, 30);
 		btnRestar.setBackground(new Color (226,247,255));
 		add(btnRestar);
@@ -169,13 +174,13 @@ class VentanaInicio extends JFrame implements ActionListener{
 		add(btn3);
 		btn3.addActionListener(this);
 
-		JButton btnMas = new JButton (" + ");
+		btnMas = new JButton (" + ");
 		btnMas.setBounds(215,210, 75, 30);
 		btnMas.setBackground(new Color (226,247,255));
 		add(btnMas);
 
 		//sexta fila 
-		JButton btnMasMenos = new JButton ("+-");
+		btnMasMenos = new JButton ("+-");
 		btnMasMenos.setBounds(0,240, 70, 30);
 		btnMasMenos.setBackground(new Color (226,247,255));
 		add(btnMasMenos);
@@ -198,47 +203,111 @@ class VentanaInicio extends JFrame implements ActionListener{
 		add(btnIgual);
 		btnIgual.addActionListener(this);
 
+btnMas.addActionListener(this);
+btnRestar.addActionListener(this);
+btnmultiplicar.addActionListener(this);
+btnReiniciar.addActionListener(this);
 
-
+btnPorcentaje.addActionListener(this);
+btnUnoEntreX.addActionListener(this);
+btnRaiz.addActionListener(this);
+btnCuadrado.addActionListener(this);
 	}
 	Double primero, segundo;
 	String operador;
-	int conteo=0;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		c1.BorrarUltimoNumero(cajaResultado, e, btnBorrar);
+		//**********************OPERADORES*********************************************
 		if(e.getSource()==btnDividir) {
-			conteo++;
-			if(operador==null) {
-				primero= Double.parseDouble(  String.valueOf(cajaResultado.getText())) ;
-				cajaResultado.setText("0");
-				operador="/";
-			}else {
-				segundo= Double.parseDouble(  String.valueOf(cajaResultado.getText())) ;
-			}
-
-			if(conteo>1) {
-				switch (operador){
-				case "/":System.out.println("dividir");
-				cajaResultado.setText(String.valueOf(	primero/segundo));
-				break;
-				}
-			}
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "/";
+		}if(e.getSource()==btnmultiplicar) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "*";
+		}if(e.getSource()==btnRestar) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "-";
+		}if(e.getSource()==btnMas) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "+";
+		
+		}if(e.getSource()==btnRaiz) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "R";
+		}if(e.getSource()==btnPorcentaje) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "P";
+		}if(e.getSource()==btnCuadrado) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "C";
+		}if(e.getSource()==btnUnoEntreX) {
+			primero = Double.parseDouble( String.valueOf(cajaResultado.getText()));
+			cajaResultado.setText("0");;
+		operador = "X";
 		}
+		
+		//*********************Otras funciones*****************************************
 		if(e.getSource()==btnIgual) {
+			try {
 			segundo= Double.parseDouble(  String.valueOf(cajaResultado.getText())) ;
 			switch (operador){
 			case "/":
 				cajaResultado.setText(String.valueOf(	primero/segundo));
 				break;
+			case "*":
+				cajaResultado.setText(String.valueOf(	primero*segundo));
+				break;
+			case "+":
+				cajaResultado.setText(String.valueOf(	primero+segundo));
+				break;
+			case "-":
+				cajaResultado.setText(String.valueOf(	primero-segundo));
+				break;
+				
+			case "R":
+				cajaResultado.setText(String.valueOf(	Math.sqrt(primero)) );
+				break;
+			case "P":
+				cajaResultado.setText( String.valueOf(  primero/100 )  );
+				break;
+			case "C":
+				cajaResultado.setText(String.valueOf(primero*primero	) );
+				break;
+			case "X":
+				cajaResultado.setText(String.valueOf(1/primero) );
+				break;
+				
 			}
-
+			}catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(null, "Solo Números por favor >:v ","ERROR", JOptionPane.ERROR_MESSAGE);
+			}
 		}
-
+		if(e.getSource()==btnCE) {
+			cajaResultado.setText("0");
+		}
+		if(e.getSource()==btnC) {
+			cajaResultado.setText("0");
+			primero = 0.0;
+			segundo= 0.0;
+		}
+		if(e.getSource()==btnReiniciar) {
+			setVisible(false);
+			new VentanaInicio();
+		}
+		
+//********************************NUMEROS***********************************************
 		if(e.getSource()==btn0) {
 			cajaResultado.setText(cajaResultado.getText()+"0");
 			c1.BorrarCero(cajaResultado);
-
 		}else if(e.getSource()==btn1) {
 			cajaResultado.setText(cajaResultado.getText()+"1");
 			c1.BorrarCero(cajaResultado);
@@ -285,6 +354,6 @@ public class CalculadoraEstandar {
 				new VentanaInicio();
 			}
 		});
-		new VentanaInicio();}
+	}
 
 }
